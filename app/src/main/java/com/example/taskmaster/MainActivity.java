@@ -1,10 +1,13 @@
 package com.example.taskmaster;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,5 +34,52 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
+
+        Button buttonStings = findViewById(R.id.Settings);
+        buttonStings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent3 = new Intent(MainActivity.this, Settings.class);
+                startActivity(intent3);
+            }
+        });
+
+
+
+        Button task1 = findViewById(R.id.task1);
+        task1.setOnClickListener((view -> {
+            String taskTitle = task1.getText().toString();
+            Intent goToTaskDetail = new Intent(MainActivity.this , TaskDetail.class);
+            goToTaskDetail.putExtra("tasks", taskTitle);
+            startActivity(goToTaskDetail);
+        }));
+
+        Button task2 = findViewById(R.id.task2);
+        task2.setOnClickListener((view -> {
+            String taskTitle = task2.getText().toString();
+            Intent goToTaskDetail = new Intent(MainActivity.this , TaskDetail.class);
+            goToTaskDetail.putExtra("tasks", taskTitle);
+            startActivity(goToTaskDetail);
+        }));
+
+        Button task3 = findViewById(R.id.task3);
+        task3.setOnClickListener((view -> {
+            String taskTitle = task3.getText().toString();
+            Intent goToTaskDetail = new Intent(MainActivity.this , TaskDetail.class);
+            goToTaskDetail.putExtra("tasks", taskTitle);
+            startActivity(goToTaskDetail);
+        }));
+
+
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String usernameTasks = "’s tasks";
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        String username = sharedPreferences.getString("username", "Your");
+        TextView userTasks = findViewById(R.id.myTask);
+        userTasks.setText(username+usernameTasks);
     }
 }
